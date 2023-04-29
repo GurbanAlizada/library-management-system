@@ -21,7 +21,9 @@ public class Book implements Serializable {
     @Column(unique = true)
     private String isbn;
 
-    private String bookName;
+    @ManyToOne
+    @JoinColumn(name = "title_id")
+    private Title title;
 
     @ManyToMany
     @JoinTable(
@@ -60,12 +62,12 @@ public class Book implements Serializable {
 
     public Book() {}
 
-    public Book(String id, String isbn, String bookName, List<Publisher> publishers,
+    public Book( String isbn, Title title, List<Publisher> publishers,
                 List<Author> authors, Integer unitsInStock,
-                List<Category> categories, List<Transaction> transactions) {
+                List<Category> categories) {
         this.id = "";
         this.isbn = isbn;
-        this.bookName = bookName;
+        this.title = title;
         this.publishers = publishers;
         this.authors = authors;
         this.unitsInStock = unitsInStock;
@@ -83,8 +85,8 @@ public class Book implements Serializable {
         return isbn;
     }
 
-    public String getBookName() {
-        return bookName;
+    public Title getTitle() {
+        return title;
     }
 
     public Integer getUnitsInStock() {
@@ -113,8 +115,8 @@ public class Book implements Serializable {
         this.isbn = isbn;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
     public void setUnitsInStock(Integer unitsInStock) {
