@@ -1,0 +1,29 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: ${JDBC-URL:default}
+    username: ${JDBC-USERNAME}
+    password: ${JDBC-PASSWORD}
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  config:
+    import: optional:file:.env[.properties]
+
+
+
+#
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:weatherdb
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+
