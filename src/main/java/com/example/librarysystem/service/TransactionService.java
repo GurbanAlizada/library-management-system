@@ -13,7 +13,9 @@ import com.example.librarysystem.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -71,13 +73,13 @@ public class TransactionService {
         transaction.setReturnDate(LocalDateTime.now());
         transactionRepository.save(transaction);
     }
-
-   public List<TransactionDto> findByIssueDate(LocalDateTime date){
-        return transactionRepository.findByIssueDate(date)
-                .stream()
-                .map(TransactionDto::convert)
-                .collect(Collectors.toList());
-   }
+//
+//   public List<TransactionDto> findByIssueDate(LocalDateTime date){
+//        return transactionRepository.findByIssueDate(date)
+//                .stream()
+//                .map(TransactionDto::convert)
+//                .collect(Collectors.toList());
+//   }
 
 
 
@@ -89,15 +91,17 @@ public class TransactionService {
     }
 
 
-    public AtomicInteger findByIssueDateCount(LocalDateTime date){
-        AtomicInteger count= new AtomicInteger();
-        transactionRepository.findAll().stream().forEach(n->{
-            if( n.getIssueDate().getMonth().equals(date.getMonth()) && n.getIssueDate().getYear()==date.getYear() &&  n.getIssueDate().getDayOfMonth()==date.getDayOfMonth()  ){
-                count.getAndIncrement();
-            }
+    public Integer findByIssueDateCount(LocalDate date){
 
-        });
-      return count;
+
+        return transactionRepository.findByIssueDate(date).size();
+//        AtomicInteger count= new AtomicInteger(0);
+//        transactionRepository.findAll().stream().forEach(n->{
+//            if( n.getIssueDate().getMonth().equals(date.getMonth()) && n.getIssueDate().getYear()==date.getYear() &&  n.getIssueDate().getDayOfMonth()==date.getDay()  ){
+//                count.getAndIncrement();
+//            }
+//
+//        });
     }
 
 

@@ -25,6 +25,7 @@ public class Transaction implements Serializable {
 
     private Boolean IsReturned;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime issueDate;
 
     private LocalDateTime dueDate;

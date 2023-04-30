@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,8 +41,9 @@ public class TransactionController {
     }
 
     @GetMapping("/issue/date")
-    public ResponseEntity<AtomicInteger> findByIssueDateCount(@RequestParam("date")
-                                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date){
+    public ResponseEntity<Integer> findByIssueDateCount(@RequestParam("date")
+                                                                  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+        System.out.println(date);
         return ResponseEntity.ok( transactionService.findByIssueDateCount(date));
     }
 
