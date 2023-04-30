@@ -24,8 +24,15 @@ public class TitleService {
 
     @Transactional
     public void addTitle(AddTitleRequest request) {
-        Title title = new Title(request.title());
-        titleRepository.save(title);
+        if (titleRepository.findByTitle(request.title()).isPresent()){
+            Title title = titleRepository.findByTitle(request.title()).orElseThrow(()->new TitleNotFoundException("title not found : " + request.title()));
+            Integer unitsInStock = title.getUnitsInStock() + request.unitsInStock();
+            title.setUnitsInStock(unitsInStock);
+            titleRepository.save(title);
+        }else {
+            Title title = new Title(request.title(), request.unitsInStock());
+            titleRepository.save(title);
+        }
     }
 
 
@@ -43,6 +50,13 @@ public class TitleService {
         final var result  = TitleDto.convert(title);
         return result;
     }
+
+
+    protected Title getByBookIsbn(String isbn){
+        return titleRepository.foo(isbn).orElseThrow(()->new TitleNotFoundException("title not found"));
+    }
+
+
 
 
     protected Title getTitleById(String id){

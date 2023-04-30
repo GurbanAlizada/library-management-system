@@ -1,13 +1,11 @@
 package com.example.librarysystem.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.librarysystem.enums.RoleName;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-
 import java.io.Serializable;
+
 
 @Entity
 @Table(name = "roles")
@@ -18,19 +16,20 @@ public class Role implements Serializable {
     @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private RoleName roleName;
 
 
     // constructors
     public Role() {
     }
 
-    public Role(String id, String roleName) {
+    public Role(String id, RoleName roleName) {
         this.id = id;
         this.roleName = roleName;
     }
 
-    public Role(String roleName) {
+    public Role(RoleName roleName) {
         this.roleName = roleName;
     }
 
@@ -42,7 +41,7 @@ public class Role implements Serializable {
         return id;
     }
 
-    public String getRoleName() {
+    public RoleName getRoleName() {
         return roleName;
     }
 

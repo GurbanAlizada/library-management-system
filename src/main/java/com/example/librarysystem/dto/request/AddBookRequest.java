@@ -7,15 +7,16 @@ import java.util.List;
 
 public record AddBookRequest(
 
+        // TODO write custom valid annotation
         @NotBlank
         String isbn,
         @NotBlank
         String titleId,
         @NotNull
-        Integer unitsInStock,
         List<String> publisherIDs,
         List<String> aurhorIDs,
         List<String> categoryIDs
 
 ) {
+
 }

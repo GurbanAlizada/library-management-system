@@ -18,14 +18,21 @@ public class Title implements Serializable {
 
     private String title;
 
+    private String description;
+
+
+    private Integer unitsInStock;
+
+
     @OneToMany(mappedBy = "title")
     private List<Book> books;
 
     // constructor
     public Title() {}
 
-    public Title( String title) {
+    public Title( String title , Integer unitsInStock) {
         this.id = "";
+        this.unitsInStock = unitsInStock;
         this.title = title;
     }
 
@@ -42,5 +49,15 @@ public class Title implements Serializable {
         return books;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public Integer getUnitsInStock() {
+        return unitsInStock;
+    }
+
+    public void setUnitsInStock(Integer unitsInStock) {
+        this.unitsInStock = unitsInStock;
+    }
 }

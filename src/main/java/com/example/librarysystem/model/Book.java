@@ -41,7 +41,7 @@ public class Book implements Serializable {
     )
     private List<Author> authors;
 
-    private Integer unitsInStock;
+
 
 
     @ManyToMany
@@ -63,14 +63,13 @@ public class Book implements Serializable {
     public Book() {}
 
     public Book( String isbn, Title title, List<Publisher> publishers,
-                List<Author> authors, Integer unitsInStock,
+                List<Author> authors,
                 List<Category> categories) {
         this.id = "";
         this.isbn = isbn;
         this.title = title;
         this.publishers = publishers;
         this.authors = authors;
-        this.unitsInStock = unitsInStock;
         this.categories = categories;
         this.transactions = transactions;
     }
@@ -89,9 +88,6 @@ public class Book implements Serializable {
         return title;
     }
 
-    public Integer getUnitsInStock() {
-        return unitsInStock;
-    }
 
     public List<Transaction> getTransactions() {
         return transactions;
@@ -119,9 +115,6 @@ public class Book implements Serializable {
         this.title = title;
     }
 
-    public void setUnitsInStock(Integer unitsInStock) {
-        this.unitsInStock = unitsInStock;
-    }
 
     public void setPublishers(List<Publisher> publishers) {
         this.publishers = publishers;

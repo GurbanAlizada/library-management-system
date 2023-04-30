@@ -2,6 +2,7 @@ package com.example.librarysystem.controller;
 
 
 import com.example.librarysystem.dto.request.AddCategoryRequest;
+import com.example.librarysystem.dto.response.BookDto;
 import com.example.librarysystem.dto.response.CategoryDto;
 import com.example.librarysystem.service.CategoryService;
 import jakarta.validation.Valid;
@@ -43,6 +44,9 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> getById(@PathVariable @NotBlank String id){
         return ResponseEntity.ok(categoryService.getById(id));
     }
+
+
+
 
 
     @PutMapping

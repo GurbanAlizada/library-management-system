@@ -29,6 +29,8 @@ public class Transaction implements Serializable {
 
     private LocalDateTime dueDate;
 
+    private LocalDateTime returnDate;
+
 
     // constructors
 
@@ -70,11 +72,22 @@ public class Transaction implements Serializable {
         return dueDate;
     }
 
+    public LocalDateTime getReturnDate() {
+        return returnDate;
+    }
 
     // setters
 
 
+    public void setReturned(Boolean returned) {
+        IsReturned = returned;
+    }
 
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
 
-
+    public void setReturnDate(LocalDateTime returnDate) {
+        this.returnDate = returnDate;
+    }
 }

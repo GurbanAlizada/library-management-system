@@ -2,12 +2,16 @@ package com.example.librarysystem.service;
 
 
 import com.example.librarysystem.dto.request.AddBookRequest;
+import com.example.librarysystem.dto.response.BookDto;
+import com.example.librarysystem.exception.AlreadyExistsIsbnException;
+import com.example.librarysystem.exception.BookNotFoundException;
 import com.example.librarysystem.model.*;
 import com.example.librarysystem.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -31,6 +35,10 @@ public class BookService {
 
     public void addBook(AddBookRequest request) {
 
+        if (bookRepository.getByIsbn(request.isbn()).isPresent()) {
+            throw new AlreadyExistsIsbnException("already exist isbn : " + request.isbn());
+        }
+
         Title title = titleService.getTitleById(request.titleId());
 
         List<String> publisherIDs = request.publisherIDs();
@@ -52,12 +60,31 @@ public class BookService {
             categories.add(categoryService.getCategoryById(id));
         }
 
-        Book book = new Book(request.isbn() , title , publishers , authors , request.unitsInStock() , categories );
+        Book book = new Book(request.isbn() , title , publishers , authors  , categories );
         bookRepository.save(book);
 
     }
 
 
+    public BookDto getByIsbn(String isbn) {
+        Book book = getBookByIsbn(isbn);
+        final var result = BookDto.convert(book);
+        return result;
+    }
+
+
+    protected Book getBookByIsbn(String isbn){
+       return bookRepository.getByIsbn(isbn)
+               .orElseThrow(()-> new BookNotFoundException("book not found : " + isbn));
+    }
+
+
+    public List<BookDto> getAllBookByCategoryId(List<String> categoryIds) {
+        List<Book> books = bookRepository.findByCategories_IdIn(categoryIds);
+        List<BookDto> result = books.stream().map(BookDto::convert).collect(Collectors.toList());
+        return result;
+
+    }
 
 
 
