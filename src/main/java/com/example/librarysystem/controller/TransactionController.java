@@ -2,6 +2,7 @@ package com.example.librarysystem.controller;
 
 
 import com.example.librarysystem.dto.request.AddTransactionRequest;
+import com.example.librarysystem.dto.response.TransactionDto;
 import com.example.librarysystem.service.TransactionService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
@@ -48,8 +50,15 @@ public class TransactionController {
     }
 
     @GetMapping("/return/date")
-    public ResponseEntity<Integer> findByReturnDateCount(@RequestParam LocalDateTime date){
+    public ResponseEntity<Integer> findByReturnDateCount(@RequestParam("date")
+                                                             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
         return ResponseEntity.ok( transactionService.findByReturnDateCount(date));
+    }
+
+
+    @GetMapping("/foo")
+    public ResponseEntity<List<TransactionDto>> foo(){
+        return ResponseEntity.ok(transactionService.foo());
     }
 
 

@@ -83,35 +83,31 @@ public class TransactionService {
 
 
 
-    public List<TransactionDto> findByReturnDate(LocalDateTime date){
-        return transactionRepository.findByReturnDate(date)
-                .stream()
-                .map(TransactionDto::convert)
-                .collect(Collectors.toList());
-    }
+//    public List<TransactionDto> findByReturnDate(LocalDateTime date){
+//        return transactionRepository.findByReturnDate(date)
+//                .stream()
+//                .map(TransactionDto::convert)
+//                .collect(Collectors.toList());
+//    }
 
 
     public Integer findByIssueDateCount(LocalDate date){
-
-
         return transactionRepository.findByIssueDate(date).size();
-//        AtomicInteger count= new AtomicInteger(0);
-//        transactionRepository.findAll().stream().forEach(n->{
-//            if( n.getIssueDate().getMonth().equals(date.getMonth()) && n.getIssueDate().getYear()==date.getYear() &&  n.getIssueDate().getDayOfMonth()==date.getDay()  ){
-//                count.getAndIncrement();
-//            }
-//
-//        });
     }
 
 
 
-    public Integer findByReturnDateCount(LocalDateTime date){
+    public Integer findByReturnDateCount(LocalDate date){
        return transactionRepository.findByReturnDate(date).size();
     }
 
 
 
+    public List<TransactionDto> foo(){
+        List<Transaction> transactions = transactionRepository.foo();
+        transactions.stream().map(n->n.getBook().getAuthors());
+        return transactions.stream().map(n->TransactionDto.convert(n)).collect(Collectors.toList());
+    }
 
 
 

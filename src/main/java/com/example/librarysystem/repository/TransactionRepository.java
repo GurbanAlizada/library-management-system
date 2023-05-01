@@ -20,7 +20,28 @@ public interface TransactionRepository extends JpaRepository<Transaction , Strin
 
 
 
-    List<Transaction> findByReturnDate(LocalDateTime returnDate);
+    @Query(nativeQuery = true , value = "SELECT * FROM transactions WHERE DATE_FORMAT(return_date, '%Y-%m-%d') = :returnDate ;")
+    List<Transaction> findByReturnDate(@Param("returnDate") LocalDate returnDate);
+
+
+    @Query(nativeQuery = true , value = "select t.*  ,  count(ba.book_id) as count from transactions t " +
+            "inner join books b on b.id=t.book_id " +
+            "inner join book_author ba on b.id=ba.book_id " +
+            "inner join authors a on a.id=ba.author_id " +
+            "group by ba.author_id " +
+            "order by ba.author_id desc " +
+            "limit 3;")
+    List<Transaction> foo();
+
+
+
+
+    /*
+
+    Transactionlar bas veren kitablar en cox hansi mueliflerindi
+
+     */
+
 
 
 }
