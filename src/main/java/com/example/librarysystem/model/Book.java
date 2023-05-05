@@ -13,44 +13,22 @@ import java.util.List;
 public class Book implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 
     @Column(unique = true)
     private String isbn;
 
     @ManyToOne
-    @JoinColumn(name = "title_id")
-    private Title title;
+    @JoinColumn(name = "detail_id")
+    private Detail detail;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_publisher",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "publisher_id")
-    )
-    private List<Publisher> publishers;
+    private Boolean here;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private List<Author> authors;
-
-
-
-
-    @ManyToMany
-    @JoinTable(
-            name = "book_category",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
 
     @OneToMany(mappedBy = "book")
@@ -58,25 +36,28 @@ public class Book implements Serializable {
 
 
 
+
     // constructors
 
     public Book() {}
 
-    public Book( String isbn, Title title, List<Publisher> publishers,
-                List<Author> authors,
-                List<Category> categories) {
-        this.id = "";
+    public Book(String isbn,
+                Detail detail,
+                Publisher publisher,
+                Boolean here) {
         this.isbn = isbn;
-        this.title = title;
-        this.publishers = publishers;
-        this.authors = authors;
-        this.categories = categories;
-        this.transactions = transactions;
+        this.detail = detail;
+        this.publisher = publisher;
+        this.here=here;
+    }
+
+    public Boolean getHere() {
+        return here;
     }
 
     // getters
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -84,53 +65,41 @@ public class Book implements Serializable {
         return isbn;
     }
 
-    public Title getTitle() {
-        return title;
+    public Detail getDetail() {
+        return detail;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public List<Publisher> getPublishers() {
-        return publishers;
-    }
-
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
 
     //setters
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public void setTitle(Title title) {
-        this.title = title;
+    public void setDetail(Detail detail) {
+        this.detail = detail;
     }
 
-
-    public void setPublishers(List<Publisher> publishers) {
-        this.publishers = publishers;
-    }
-
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-
+    public void setHere(Boolean here) {
+        this.here = here;
+    }
 }

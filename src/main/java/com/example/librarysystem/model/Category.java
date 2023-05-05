@@ -2,7 +2,6 @@ package com.example.librarysystem.model;
 
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,14 +12,13 @@ import java.util.List;
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String categoryName;
 
     @ManyToMany(mappedBy = "categories")
-    private List<Book> books = new ArrayList<>();
+    private List<Detail> books = new ArrayList<>();
 
 
 
@@ -28,18 +26,12 @@ public class Category implements Serializable {
     public Category() { }
 
     public Category(String categoryName) {
-        this.id="";
-        this.categoryName = categoryName;
-    }
-
-    public Category(String id, String categoryName) {
-        this.id = id;
         this.categoryName = categoryName;
     }
 
 
     // getter
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -47,15 +39,22 @@ public class Category implements Serializable {
         return categoryName;
     }
 
-    public List<Book> getBooks() {
+    public List<Detail> getBooks() {
         return books;
     }
 
-
     // setter
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
-
+    public void setBooks(List<Detail> books) {
+        this.books = books;
+    }
 }

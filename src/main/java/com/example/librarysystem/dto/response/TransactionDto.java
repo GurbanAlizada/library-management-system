@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 public record TransactionDto(
 
-        String transactionId,
+        Long transactionId,
         BookDto bookDto,
-        String userId,
+        Long userId,
         Boolean IsReturned,
         LocalDateTime issueDate,
         LocalDateTime dueDate,

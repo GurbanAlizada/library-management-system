@@ -2,6 +2,8 @@ package com.example.librarysystem.controller;
 
 
 import com.example.librarysystem.dto.request.AddTransactionRequest;
+import com.example.librarysystem.dto.response.PopularAuthorsDto;
+import com.example.librarysystem.dto.response.TransactionDateDto;
 import com.example.librarysystem.dto.response.TransactionDto;
 import com.example.librarysystem.service.TransactionService;
 import jakarta.validation.Valid;
@@ -37,29 +39,44 @@ public class TransactionController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> changeStatus(@RequestParam @NotBlank String transactionId ,@RequestParam @NotBlank String isbn){
-        transactionService.changeStatus(transactionId , isbn);
+    public ResponseEntity<Void> changeStatus(@RequestParam @NotBlank String isbn){
+        transactionService.changeStatus( isbn);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
     @GetMapping("/issue/date")
-    public ResponseEntity<Integer> findByIssueDateCount(@RequestParam("date")
-                                                                  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
-        System.out.println(date);
-        return ResponseEntity.ok( transactionService.findByIssueDateCount(date));
+    public ResponseEntity<TransactionDateDto> findByIssueDateCount
+            (@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+        return ResponseEntity.ok( transactionService.findByIssueDateIsReturnFalseCount(date));
     }
+
+
+
+
 
     @GetMapping("/return/date")
-    public ResponseEntity<Integer> findByReturnDateCount(@RequestParam("date")
-                                                             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
-        return ResponseEntity.ok( transactionService.findByReturnDateCount(date));
+    public ResponseEntity<TransactionDateDto> findByReturnDateCount
+            (@RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+        return ResponseEntity.ok( transactionService.findByReturnDateIsReturnTrueCount(date));
     }
 
 
-    @GetMapping("/foo")
-    public ResponseEntity<List<TransactionDto>> foo(){
-        return ResponseEntity.ok(transactionService.foo());
+
+
+    @GetMapping("/popular/authors")
+    public ResponseEntity<List<PopularAuthorsDto>> getMostPopularAuthorsAndCount(){
+        return ResponseEntity.ok(transactionService.getMostPopularAuthorsAndCount());
     }
+
+
+
+    @GetMapping("/finCode/{finCode}")
+    public ResponseEntity<List<TransactionDto>> getByUser_FinCode
+            (@PathVariable @NotBlank String finCode){
+        return ResponseEntity.ok(transactionService.getByUser_FinCode(finCode));
+    }
+
 
 
 

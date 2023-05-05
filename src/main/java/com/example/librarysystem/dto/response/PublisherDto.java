@@ -3,7 +3,7 @@ package com.example.librarysystem.dto.response;
 import com.example.librarysystem.model.Publisher;
 
 public record PublisherDto(
-        String id,
+        Long id,
         String publisher
 
 ) {

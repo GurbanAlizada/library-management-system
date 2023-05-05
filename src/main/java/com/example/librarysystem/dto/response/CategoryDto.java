@@ -4,7 +4,7 @@ import com.example.librarysystem.model.Category;
 
 public record CategoryDto(
 
-        String id,
+        Long id,
         String categoryName
 
 ) {

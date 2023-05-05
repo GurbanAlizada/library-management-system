@@ -2,6 +2,7 @@ package com.example.librarysystem.controller;
 
 import com.example.librarysystem.dto.request.AddBookRequest;
 import com.example.librarysystem.dto.response.BookDto;
+import com.example.librarysystem.dto.response.PopularBooksDto;
 import com.example.librarysystem.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -36,14 +37,35 @@ public class BookControllerr {
 
 
     @GetMapping("/category")
-    public ResponseEntity<List<BookDto>> getAllBookByCategoryId(@RequestParam List<String> categoryIds){
+    public ResponseEntity<List<BookDto>> getAllBookByCategoryId(@RequestParam List<Long> categoryIds){
         return ResponseEntity.ok(bookService.getAllBookByCategoryId(categoryIds));
     }
+
+
+    @GetMapping("/popular/books")
+    public ResponseEntity<List<PopularBooksDto>> getMostPopularBooks(){
+        return ResponseEntity.ok(bookService.getMostPopularBooks());
+    }
+
+
 
     @GetMapping("/user/{finCode}")
     public ResponseEntity<List<BookDto>> getAllGivenBooksByUserFinCode(@PathVariable String finCode){
         return null;
     }
+
+
+    @GetMapping("/getAllBookIsHere")
+    public ResponseEntity<List<BookDto>> getAllBookIsHere(){
+        return null;
+    }
+
+    @GetMapping("/getAllBookIsHere/{title}")
+    public ResponseEntity<List<BookDto>> getAllBookIsHereAndByTitle(@PathVariable String title){
+        return null;
+    }
+
+
 
 
 

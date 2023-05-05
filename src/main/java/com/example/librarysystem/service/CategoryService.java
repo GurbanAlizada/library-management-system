@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class CategoryService {
+@Service public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
@@ -37,14 +36,14 @@ public class CategoryService {
         return result;
     }
 
-    public CategoryDto getById(String id) {
+    public CategoryDto getById(Long id) {
         Category category = getCategoryById(id);
         final var result = CategoryDto.convert(category);
         return result;
     }
 
 
-    protected Category getCategoryById(String id){
+    protected Category getCategoryById(Long id){
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException("category not found : " + id));
         return category;

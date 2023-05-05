@@ -10,12 +10,11 @@ public record AddBookRequest(
         // TODO write custom valid annotation
         @NotBlank
         String isbn,
-        @NotBlank
-        String titleId,
         @NotNull
-        List<String> publisherIDs,
-        List<String> aurhorIDs,
-        List<String> categoryIDs
+        Long detailId,
+        @NotNull
+        Long publisherId
+
 
 ) {
 

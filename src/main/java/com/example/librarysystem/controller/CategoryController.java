@@ -7,6 +7,7 @@ import com.example.librarysystem.dto.response.CategoryDto;
 import com.example.librarysystem.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,10 +42,15 @@ public class CategoryController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> getById(@PathVariable @NotBlank String id){
+    public ResponseEntity<CategoryDto> getById(@PathVariable @NotNull Long id){
         return ResponseEntity.ok(categoryService.getById(id));
     }
 
+
+    @GetMapping("/categoryName/{categoryName}")
+    public ResponseEntity<CategoryDto> getByCategoryName(String categoryName){
+        return null;
+    }
 
 
 

@@ -6,6 +6,7 @@ import com.example.librarysystem.dto.response.AuthorDto;
 import com.example.librarysystem.service.AuthorService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,10 +43,21 @@ public class AuthorController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getById(@PathVariable @NotBlank String id){
+    public ResponseEntity<AuthorDto> getById(@PathVariable @NotNull Long id){
         return ResponseEntity.ok(authorService.getById(id));
     }
 
+
+    @GetMapping("/authorName/{authorName}")
+    public ResponseEntity<AuthorDto> getByAuthorName(String authorName){
+        return null;
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<AuthorDto> search(String key){
+        return null;
+    }
 
 
     @PutMapping

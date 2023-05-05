@@ -38,7 +38,7 @@ public class AuthorService {
     }
 
 
-    public AuthorDto getById(String id) {
+    public AuthorDto getById(Long id) {
         Author author = getAuthorById(id);
         final var result = AuthorDto.convert(author);
         return result;
@@ -49,7 +49,7 @@ public class AuthorService {
 
 
 
-    protected Author getAuthorById(String id){
+    protected Author getAuthorById(Long id){
         Author author = authorRepository.findById(id)
                 .orElseThrow(()-> new AuthorNotFoundException("author not found : " + id));
         return author;

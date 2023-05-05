@@ -20,7 +20,7 @@ public class UserService {
 
 
 
-    protected User getById(String id){
+    protected User getById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(()->new UserNotFoundException("user not found : " + id));
     }

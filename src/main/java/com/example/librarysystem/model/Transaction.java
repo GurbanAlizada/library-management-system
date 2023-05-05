@@ -1,7 +1,6 @@
 package com.example.librarysystem.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,9 +10,8 @@ import java.time.LocalDateTime;
 public class Transaction implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
@@ -23,7 +21,7 @@ public class Transaction implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Boolean IsReturned;
+    private Boolean isReturned;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime issueDate;
@@ -38,18 +36,18 @@ public class Transaction implements Serializable {
     public Transaction() { }
 
     public Transaction(Book book, User user, Boolean isReturned,
-                       LocalDateTime issueDate, LocalDateTime dueDate) {
-        this.id = "";
+                       LocalDateTime issueDate, LocalDateTime dueDate , LocalDateTime returnDate) {
         this.book = book;
         this.user = user;
-        IsReturned = isReturned;
+        this.isReturned = isReturned;
         this.issueDate = issueDate;
         this.dueDate = dueDate;
+        this.returnDate = returnDate;
     }
 
     // getters
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,7 +60,7 @@ public class Transaction implements Serializable {
     }
 
     public Boolean getReturned() {
-        return IsReturned;
+        return isReturned;
     }
 
     public LocalDateTime getIssueDate() {
@@ -80,8 +78,24 @@ public class Transaction implements Serializable {
     // setters
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setReturned(Boolean returned) {
-        IsReturned = returned;
+        isReturned = returned;
+    }
+
+    public void setIssueDate(LocalDateTime issueDate) {
+        this.issueDate = issueDate;
     }
 
     public void setDueDate(LocalDateTime dueDate) {

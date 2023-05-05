@@ -12,9 +12,8 @@ import java.io.Serializable;
 public class Role implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
@@ -24,7 +23,7 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public Role(String id, RoleName roleName) {
+    public Role(Long id, RoleName roleName) {
         this.id = id;
         this.roleName = roleName;
     }
@@ -37,9 +36,6 @@ public class Role implements Serializable {
     // getter
 
 
-    public String getId() {
-        return id;
-    }
 
     public RoleName getRoleName() {
         return roleName;

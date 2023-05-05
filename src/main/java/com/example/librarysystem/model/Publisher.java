@@ -13,32 +13,26 @@ import java.util.List;
 public class Publisher implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 
     private String publisher;
 
-    @ManyToMany(mappedBy = "publishers")
+    @OneToMany(mappedBy = "publisher")
     private List<Book> books = new ArrayList<>();
 
 
     // constructor
     public Publisher() {}
 
-    public Publisher(String id, String publisher) {
-        this.id = id;
-        this.publisher = publisher;
-    }
-
     public Publisher(String publisher) {
-        this.id="";
         this.publisher = publisher;
     }
 
     // getters
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
@@ -50,10 +44,19 @@ public class Publisher implements Serializable {
         return books;
     }
 
+
     // setter
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

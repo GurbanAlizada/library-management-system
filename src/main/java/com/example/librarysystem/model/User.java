@@ -14,9 +14,8 @@ public class User implements Serializable {
 
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
@@ -51,36 +50,14 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String id, String name, String surname, String finCode,
-                String password, String email, String phoneNumber, List<Role> roles) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.finCode = finCode;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-    }
 
-    public User( String name, String surname, String finCode,
-                String password, String email, String phoneNumber, List<Role> roles) {
-        this.id = "";
-        this.name = name;
-        this.surname = surname;
-        this.finCode = finCode;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-    }
 
 
 
     // getter
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -115,8 +92,4 @@ public class User implements Serializable {
     public List<Transaction> getTransactions() {
         return transactions;
     }
-
-
-
-
 }

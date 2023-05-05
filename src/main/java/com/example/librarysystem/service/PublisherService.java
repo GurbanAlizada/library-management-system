@@ -39,14 +39,14 @@ public class PublisherService {
     }
 
 
-    public PublisherDto getById(String id) {
+    public PublisherDto getById(Long id) {
         Publisher publisher = getPublisherById(id);
         final var result =  PublisherDto.convert(publisher);
         return result;
     }
 
 
-    protected Publisher getPublisherById(String id){
+    protected Publisher getPublisherById(Long id){
         Publisher publisher = publisherRepository.findById(id)
                 .orElseThrow(()-> new PublisherNotFoundException("publisher not found : " + id));
 
